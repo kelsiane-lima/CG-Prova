@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Trabalho com WebGL</title>
+    <meta charset="UTF-8">
+
+    <script src="a.js"></script>
+
+    <script id="meu_vertex_shader" type="vertex-shader">
+        #version 300 es
+        precision highp float;
+
+        in vec3 in_posicao;
+        out vec3 pos, cor;
+
+        // nossa variável uniform de matriz
+        uniform mat4 matriz;
+
+        void main(void) {
+            pos = in_posicao;
+            cor = vec3( 1.0, 0.0, 0.0 );
+
+            // aplica transformação seguindo a matriz passada
+            //
+            gl_Position = matriz * vec4(pos, 1.0);
+        }
+    </script>
+
+    <script id="meu_fragment_shader" type="fragment-shader">
+        #version 300 es
+        precision highp float;
+
+        in vec3 pos, cor;
+        out vec4 cor_pixel;
+
+        void main ()
+        {
+            cor_pixel = vec4( cor, 0 );
+        }
+    
+    </script>
+
+</head>
+
+<body onload="main()">
+
+    <section>
+        <h1>Atividade de Computação Gráfica</h1>
+        <h3>Discentes: Kelsiane, Tobias e Felipe Harlen</h3>
+
+        <div class="grid-container">
+
+            <div class="grid-item">
+                <canvas id="area" width="200" height="200"> </canvas>
+            </div>
+
+            <div class="grid-item">
+                <div>
+
+                    <button onclick="renderiza()" class="reset">Reset</button>
+                </div>
+                <div>
+                    <input type="number" id="Rotate">
+                    <button onclick="renderizaR()">Rotate</button>
+                </div>
+                <div>
+                    <input type="number" id="TranslateX">
+                    <input type="number" id="TranslateY">
+                    <button onclick="renderizaT()">Translate</button>
+                </div>
+                <div>
+                    <input type="number" id="ScaleX">
+                    <input type="number" id="ScaleY">
+                    <button onclick="renderizaS()">Scale</button>
+                </div>
+            </div>
+
+    </section>
+</body>
+<style>
+    input {
+        font-size: 13px;
+        width: 50px;
+        background-color: #194052;
+        color: white;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    section {
+        text-align: center !important;
+    }
+
+    .grid-container {
+
+        text-align: center;
+        display: grid;
+        grid-template-columns: auto auto;
+        background-color: #2196F3;
+        padding: 10px;
+        display: table;
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+    .grid-item {
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        font-size: 35px;
+        text-align: center;
+
+    }
+
+    .grid-item .reset {
+        background-color: red !important;
+        border-radius: 8px;
+    }
+
+    button {
+        background-color: #008CBA;
+        border-radius: 8px;
+    }
+</style>
+
+</html>
